@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.svlada.CustomCorsFilter;
 import com.svlada.security.RestAuthenticationEntryPoint;
 import com.svlada.security.auth.ajax.MyAuthenticationProvider;
@@ -37,7 +36,7 @@ import com.svlada.security.auth.jwt.extractor.TokenExtractor;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    public static final String AUTHENTICATION_HEADER_NAME = "Authorization";
+    public static final String AUTHENTICATION_HEADER_NAME = "X-Authorization";
     public static final String AUTHENTICATION_URL = "/api/auth/login";
     public static final String REFRESH_TOKEN_URL = "/api/auth/token";
     public static final String API_ROOT_URL = "/api/**";

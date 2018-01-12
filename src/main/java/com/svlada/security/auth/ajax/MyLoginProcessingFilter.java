@@ -21,7 +21,6 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * MyLoginProcessingFilter

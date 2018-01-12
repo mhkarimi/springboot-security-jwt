@@ -19,7 +19,6 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.svlada.security.model.UserContext;
 import com.svlada.security.model.token.JwtToken;
 import com.svlada.security.model.token.JwtTokenFactory;
