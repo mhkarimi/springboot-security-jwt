@@ -3,6 +3,8 @@ package com.svlada.security.config;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.svlada.security.auth.ajax.MyLoginProcessingFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.svlada.CustomCorsFilter;
 import com.svlada.security.RestAuthenticationEntryPoint;
-import com.svlada.security.auth.ajax.AjaxAuthenticationProvider;
-import com.svlada.security.auth.ajax.AjaxLoginProcessingFilter;
+import com.svlada.security.auth.ajax.MyAuthenticationProvider;
 import com.svlada.security.auth.jwt.JwtAuthenticationProvider;
 import com.svlada.security.auth.jwt.JwtTokenAuthenticationProcessingFilter;
 import com.svlada.security.auth.jwt.SkipPathRequestMatcher;
@@ -41,20 +42,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String REFRESH_TOKEN_URL = "/api/auth/token";
     public static final String API_ROOT_URL = "/api/**";
 
-    @Autowired private RestAuthenticationEntryPoint authenticationEntryPoint;
-    @Autowired private AuthenticationSuccessHandler successHandler;
-    @Autowired private AuthenticationFailureHandler failureHandler;
-    @Autowired private AjaxAuthenticationProvider ajaxAuthenticationProvider;
-    @Autowired private JwtAuthenticationProvider jwtAuthenticationProvider;
+    @Autowired
+    private RestAuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired
+    private AuthenticationSuccessHandler successHandler;
+    @Autowired
+    private AuthenticationFailureHandler failureHandler;
+    @Autowired
+    private MyAuthenticationProvider myAuthenticationProvider;
+    @Autowired
+    private JwtAuthenticationProvider jwtAuthenticationProvider;
 
-    @Autowired private TokenExtractor tokenExtractor;
+    @Autowired
+    private TokenExtractor tokenExtractor;
 
-    @Autowired private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-    @Autowired private ObjectMapper objectMapper;
+    @Autowired
+    private Gson gson;
 
-    protected AjaxLoginProcessingFilter buildAjaxLoginProcessingFilter(String loginEntryPoint) throws Exception {
-        AjaxLoginProcessingFilter filter = new AjaxLoginProcessingFilter(loginEntryPoint, successHandler, failureHandler, objectMapper);
+    protected MyLoginProcessingFilter buildAjaxLoginProcessingFilter(String loginEntryPoint) throws Exception {
+        MyLoginProcessingFilter filter = new MyLoginProcessingFilter(loginEntryPoint, successHandler, failureHandler,gson);
         filter.setAuthenticationManager(this.authenticationManager);
         return filter;
     }
@@ -75,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(ajaxAuthenticationProvider);
+        auth.authenticationProvider(myAuthenticationProvider);
         auth.authenticationProvider(jwtAuthenticationProvider);
     }
     

@@ -21,4 +21,10 @@ public class ProfileEndpoint {
     public @ResponseBody UserContext get(JwtAuthenticationToken token) {
         return (UserContext) token.getPrincipal();
     }
+
+    @RequestMapping(value="/api/me2", method=RequestMethod.GET)
+    public @ResponseBody String get2() {
+
+        return "Just Test";
+    }
 }
