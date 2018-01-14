@@ -5,6 +5,7 @@ demo.security.jwt:
   refreshTokenExpTime: 60 # Minutes
   tokenIssuer: http://svlada.com
   tokenSigningKey: xm8EV6Hy5RMFK4EEACIDAwQus
+  tokenNumberOfLogin: 10
   
 spring.datasource:
   url: "jdbc:h2:mem:testdb"

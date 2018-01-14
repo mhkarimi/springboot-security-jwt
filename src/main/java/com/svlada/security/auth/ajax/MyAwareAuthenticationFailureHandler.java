@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.svlada.security.exceptions.LoginNumberExcessesException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,7 +49,9 @@ public class MyAwareAuthenticationFailureHandler implements AuthenticationFailur
 			response.getWriter().write(gson.toJson(ErrorResponse.of("Token has expired", ErrorCode.JWT_TOKEN_EXPIRED, HttpStatus.UNAUTHORIZED)));
 		} else if (e instanceof AuthMethodNotSupportedException) {
 			response.getWriter().write(gson.toJson(ErrorResponse.of(e.getMessage(), ErrorCode.AUTHENTICATION, HttpStatus.UNAUTHORIZED)));
-		}
+		}else  if(e instanceof LoginNumberExcessesException){
+            response.getWriter().write(gson.toJson(ErrorResponse.of(e.getMessage(), ErrorCode.LOGIN_NUMBERS_EXCESSES, HttpStatus.UNAUTHORIZED)));
+        }
 
 		response.getWriter().write(gson.toJson(ErrorResponse.of("Authentication failed", ErrorCode.AUTHENTICATION, HttpStatus.UNAUTHORIZED)));
 	}

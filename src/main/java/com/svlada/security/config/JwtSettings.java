@@ -6,6 +6,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "demo.security.jwt")
 public class JwtSettings {
+
+    /*
+    *
+    * Number of login based on a specific token
+    */
+    private Integer tokenNumberOfLogin;
     /**
      * {@link JwtToken} will expire after this time.
      */
@@ -45,6 +51,7 @@ public class JwtSettings {
     public String getTokenIssuer() {
         return tokenIssuer;
     }
+
     public void setTokenIssuer(String tokenIssuer) {
         this.tokenIssuer = tokenIssuer;
     }
@@ -55,5 +62,13 @@ public class JwtSettings {
     
     public void setTokenSigningKey(String tokenSigningKey) {
         this.tokenSigningKey = tokenSigningKey;
+    }
+
+    public Integer getTokenNumberOfLogin() {
+        return tokenNumberOfLogin;
+    }
+
+    public void setTokenNumberOfLogin(Integer tokenNumberOfLogin) {
+        this.tokenNumberOfLogin = tokenNumberOfLogin;
     }
 }

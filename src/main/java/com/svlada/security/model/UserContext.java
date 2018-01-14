@@ -14,12 +14,19 @@ import org.springframework.security.core.GrantedAuthority;
 public class UserContext {
     private final String username;
     private final List<GrantedAuthority> authorities;
+    private Integer numberOfLogins = 0;
 
     private UserContext(String username, List<GrantedAuthority> authorities) {
         this.username = username;
         this.authorities = authorities;
     }
-    
+
+    public UserContext(String username, List<GrantedAuthority> authorities, Integer numberOfLogins) {
+        this.username = username;
+        this.authorities = authorities;
+        this.numberOfLogins = numberOfLogins;
+    }
+
     public static UserContext create(String username, List<GrantedAuthority> authorities) {
         if (StringUtils.isBlank(username)) throw new IllegalArgumentException("Username is blank: " + username);
         return new UserContext(username, authorities);
@@ -31,5 +38,13 @@ public class UserContext {
 
     public List<GrantedAuthority> getAuthorities() {
         return authorities;
+    }
+
+    public Integer getNumberOfLogins() {
+        return numberOfLogins;
+    }
+
+    public void setNumberOfLogins(Integer numberOfLogins) {
+        this.numberOfLogins = numberOfLogins;
     }
 }

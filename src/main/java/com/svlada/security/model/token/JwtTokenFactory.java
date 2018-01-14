@@ -38,8 +38,8 @@ public class JwtTokenFactory {
     /**
      * Factory method for issuing new JWT Tokens.
      * 
-     * @param username
-     * @param roles
+     * @param
+     * @param
      * @return
      */
     public AccessJwtToken createAccessJwtToken(UserContext userContext) {
@@ -51,6 +51,8 @@ public class JwtTokenFactory {
 
         Claims claims = Jwts.claims().setSubject(userContext.getUsername());
         claims.put("scopes", userContext.getAuthorities().stream().map(s -> s.toString()).collect(Collectors.toList()));
+        //TODO add new claim
+        claims.put("nl",userContext.getNumberOfLogins());
 
         LocalDateTime currentTime = LocalDateTime.now();
         
@@ -76,6 +78,8 @@ public class JwtTokenFactory {
 
         Claims claims = Jwts.claims().setSubject(userContext.getUsername());
         claims.put("scopes", Arrays.asList(Scopes.REFRESH_TOKEN.authority()));
+        //TODO add new claim
+        claims.put("nl",userContext.getNumberOfLogins());
         
         String token = Jwts.builder()
           .setClaims(claims)
